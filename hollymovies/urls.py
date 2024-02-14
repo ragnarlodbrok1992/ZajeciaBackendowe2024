@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from viewer.views import hello
+from viewer.views import hello, powitanie, strona_glowna
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello', hello)
+    path('', strona_glowna),
+    path('hello', hello),  # ?imie=Maciej&nazwisko=Oliwa
+    path('powitanie/<imie>/<nazwisko>', powitanie),
 ]
