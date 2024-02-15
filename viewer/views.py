@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-""" ZADANIE 
+""" ZADANIE Domowe
     1. Modyfikujac funkcje 'hello' utworz program ktory:
       a) Przywita sie z userem jezeli ten poda imie
          - W przypadku braku imienia odpowie nam "Podaj swoje imie"
@@ -8,15 +8,7 @@ from django.http import HttpResponse
      c) ** DLA CHETNYCH ** przekaz przez path albo parametr date, utworz obiekt datetime i go wyswietl na ekranie.
 """
 
-
-# def hello(request):
-#     user = request.GET.get('user', 'UŻYTKOWNIK_DOMYŚLNY')
-#     wiek = request.GET.get('wiek', None)
-#     if wiek is None:
-#         return HttpResponse("ILE MASZ LAT?!?!?!")
-#     return HttpResponse(f"Hello, {user}, który ma {wiek} lat!!!")
-
-""" ZADANIE 
+""" ZADANIE 1
   1. Witamy wszystkich, oprocz:
     a) Macieja Oliwy
     b) Tomasza Nowaka
