@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+    <head></head>
+    <body>
+        <h1>Welcome to Hollymovies, SDA project!</h1>
+        {% for adjective in adjectives %}
+            {% if adjective %}
+                {% if adjective == 'Maciej' %}
+                    <p>TEMU PANU PODZIEKUJEMY!!!!</p>
+                {% else %}
+                    <p>Adjective is: {{ adjective }}</p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </body>
+</html>

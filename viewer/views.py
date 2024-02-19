@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 """ ZADANIE Domowe
     1. Modyfikujac funkcje 'hello' utworz program ktory:
@@ -21,23 +22,12 @@ BAD_PEOPLE_LIST = [
 ]
 
 
-def hello(request):
-    imie = request.GET.get('imie', 'WARTOŚĆ_DOMYŚLNA')
-    nazwisko = request.GET.get('nazwisko', 'WARTOŚĆ_DOMYŚLNA')
-
-    # if imie == "Maciej" and nazwisko == "Oliwa":
-    #     return HttpResponse("Temu panu DZIEKUJEMY!!")
-    # if imie == "Tomasz" and nazwisko == "Nowak":
-    #     return HttpResponse("Temu panu DZIEKUJEMY!!")
-
-    # for person in BAD_PEOPLE_LIST:
-    #     if (imie, nazwisko) == person:
-    #         return HttpResponse("TEGO PANA NIE OBSLUGUJEMY!!!!")
-
-    if (imie, nazwisko) in BAD_PEOPLE_LIST:
-        return HttpResponse("TEGO PANA NIE OBSLUGUJEMY!!!!")
-
-    return HttpResponse(f"Hello, {imie} {nazwisko}!!!!")
+def hello(request, s0):
+    s1 = request.GET.get('s1', '')
+    return render(
+        request, template_name='hello.html',
+        context={'adjectives': [s0, s1, 'beautiful', 'wonderful']}
+    )
 
 
 def powitanie(request, imie, nazwisko):
