@@ -22,11 +22,22 @@ BAD_PEOPLE_LIST = [
 ]
 
 
-def hello(request, s0):
-    s1 = request.GET.get('s1', '')
+def hello(request, s0, s1):
+    p4 = s0
+    p5 = s1
+
+    p1 = request.GET.get('s1', '')
+    p2 = request.GET.get('s2', '')
+    p3 = request.GET.get('s3', '')
     return render(
         request, template_name='hello.html',
-        context={'adjectives': [s0, s1, 'beautiful', 'wonderful']}
+        context={'parametry':
+                 {'p1': p1,
+                  'p2': p2,
+                  'p3': p3,
+                  'p4': p4,
+                  'p5': p5},
+                 'zmienna': 120}
     )
 
 
