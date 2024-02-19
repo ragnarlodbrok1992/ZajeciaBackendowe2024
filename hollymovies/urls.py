@@ -23,7 +23,8 @@ from viewer.views import hello, powitanie, strona_glowna
 admin.site.register(Genre)
 admin.site.register(Movie)
 
-# FIXME: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
+# Problem: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
+# Rozwiazanie: python -Xutf8 manage.py dumpdata viewer --output fixtures.json
 
 """ ZADANIE 2
     Korzystajac z python manage.py shell stworz trzy rozne filmy.
