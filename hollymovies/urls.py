@@ -20,8 +20,10 @@ from django.urls import path
 from viewer.models import Genre, Movie
 from viewer.views import hello, powitanie, strona_glowna
 
-admin.site.register(Genre)  # TODO: popraw wyświetlanie obiektów gatunku w panelu administratora
-admin.site.register(Movie)  # FIXME: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
+admin.site.register(Genre)
+admin.site.register(Movie)
+
+# FIXME: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
 
 """ ZADANIE 2
     Korzystajac z python manage.py shell stworz trzy rozne filmy.

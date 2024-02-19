@@ -8,6 +8,9 @@ from django.db.models import (
 class Genre(Model):
     name = CharField(max_length=128)
 
+    def __str__(self):
+        return self.name
+
 
 class Movie(Model):
     title = CharField(max_length=128)  # TODO: dodac unikalnosc pola title dla wszystkich rekordow
@@ -16,3 +19,6 @@ class Movie(Model):
     release_date = DateField()
     description = TextField()
     created_entry = DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
