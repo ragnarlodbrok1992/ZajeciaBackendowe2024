@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
 
 from viewer.models import Movie
 
@@ -11,20 +12,6 @@ def movies_all(request):
     )
 
 
-def movies_by_genre(request, genre):
-    # movies = Movie.objects.filter(genre__name=genre)
-
-    # movies = Movie.objects.filter(genre__name__iexact=genre)
-
-    movies = []
-    for movie in Movie.objects.all():
-        if movie.genre.name.lower() == genre.lower():
-            movies.append(movie)
-
-    return render(
-        request, template_name='movies.html',
-        context={'movies': movies}
-    )
 
 
 """
@@ -42,8 +29,26 @@ def powitanie(request, imie, nazwisko):
     return HttpResponse(f"Witaj {imie} {nazwisko}!")
 
 
-def strona_glowna(request):
-    return render(
-        request, template_name='index.html',
-        context={}
-    )
+class StronaGlownaView(View):
+    def get(self, request):
+        return render(
+            request, template_name='index.html',
+            context={}
+        )
+
+
+class MoviesByGenreView(View):
+    def get(self, request, genre):
+        # movies = Movie.objects.filter(genre__name=genre)
+
+        # movies = Movie.objects.filter(genre__name__iexact=genre)
+
+        movies = []
+        for movie in Movie.objects.all():
+            if movie.genre.name.lower() == genre.lower():
+                movies.append(movie)
+
+        return render(
+            request, template_name='movies.html',
+            context={'movies': movies}
+        )
