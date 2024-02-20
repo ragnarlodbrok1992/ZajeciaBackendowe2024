@@ -2,16 +2,11 @@
 
 {% block content %}
 
-    <!-- DEBUG CODE -->
-    <p>{{ genre }}</p>
-
     <ul>
         {% for movie in movies %}
-            {% if movie.genre.name == genre %}
-                <li>
-                    {{ movie.title }} ({{ movie.release_date }}) - {{movie.genre.name}}
-                </li>
-            {% endif %}
+            <li>
+                {{ movie.title }} ({{ movie.release_date }}) - {{movie.genre.name}}
+            </li>
         {% endfor %}
     </ul>
 

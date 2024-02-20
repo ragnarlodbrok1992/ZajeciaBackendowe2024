@@ -12,10 +12,18 @@ def movies_all(request):
 
 
 def movies_by_genre(request, genre):
+    # movies = Movie.objects.filter(genre__name=genre)
+
+    # movies = Movie.objects.filter(genre__name__iexact=genre)
+
+    movies = []
+    for movie in Movie.objects.all():
+        if movie.genre.name.lower() == genre.lower():
+            movies.append(movie)
+
     return render(
         request, template_name='movies.html',
-        context={'movies': Movie.objects.all(),
-                 'genre': genre}
+        context={'movies': movies}
     )
 
 
