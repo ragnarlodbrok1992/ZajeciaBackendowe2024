@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from viewer.models import Genre, Movie
-from viewer.views import hello, powitanie, strona_glowna
+from viewer.views import movies_all, powitanie, strona_glowna
 
 admin.site.register(Genre)
 admin.site.register(Movie)
@@ -26,13 +26,10 @@ admin.site.register(Movie)
 # Problem: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
 # Rozwiazanie: python -Xutf8 manage.py dumpdata viewer --output fixtures.json
 
-""" ZADANIE 2
-    Korzystajac z python manage.py shell stworz trzy rozne filmy.
-"""
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', strona_glowna),
-    path('hello/<s0>/<s1>', hello),
+    path('movies/', movies_all),
     path('powitanie/<imie>/<nazwisko>', powitanie),
 ]
