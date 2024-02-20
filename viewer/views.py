@@ -1,26 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import TemplateView, ListView
 
-from viewer.models import Movie
-
-
-def movies_all(request):
-    return render(
-        request, template_name='movies.html',
-        context={'movies': Movie.objects.all()}
-    )
+from viewer.models import Movie, Genre
 
 
+class MoviesAllView(TemplateView):
+    template_name = 'movies.html'
+    extra_context = {'movies': Movie.objects.all()}
 
 
-"""
-ZADANIE 4  -> VIEW --> PATH(URL) --> CONTEXT --> TEMPLATE(SZABLON)
-    a) Stworz nowy widok
-    b) Przekaz parametr do funkcji (czyli poprzez path) <-- nazwa gatunku
-    c) Przekaz przez context do widoku 'movies.html' dane na temat filmow danego gatunku
-    d) Wyswietl te filmy w formie listy
-"""
+class GenresAllView(ListView):
+    template_name = 'generic.html'
+    model = Genre
 
 
 def powitanie(request, imie, nazwisko):

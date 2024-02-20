@@ -19,8 +19,9 @@ from django.urls import path
 
 from viewer.models import Genre, Movie
 from viewer.views import (
-    movies_all, powitanie,
-    MoviesByGenreView, StronaGlownaView
+    MoviesAllView, powitanie,
+    MoviesByGenreView, StronaGlownaView,
+    GenresAllView
 )
 
 admin.site.register(Genre)
@@ -33,7 +34,8 @@ admin.site.register(Movie)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', StronaGlownaView.as_view(), name='index'),
-    path('movies/', movies_all, name='movies'),
+    path('movies/', MoviesAllView.as_view(), name='movies'),
     path('movies/<genre>', MoviesByGenreView.as_view()),
+    path('genres/', GenresAllView.as_view(), name='genres'),
     path('powitanie/<imie>/<nazwisko>', powitanie),
 ]
