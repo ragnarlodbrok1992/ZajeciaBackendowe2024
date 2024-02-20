@@ -43,4 +43,7 @@ def powitanie(request, imie, nazwisko):
 
 
 def strona_glowna(request):
-    return HttpResponse("Hello, SDA!!!")
+    return render(
+        request, template_name='index.html',
+        context={}
+    )

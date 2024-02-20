@@ -32,7 +32,7 @@ admin.site.register(Movie)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', strona_glowna),
+    path('', strona_glowna, name='index'),
     path('movies/', movies_all),
     path('movies/<genre>', movies_by_genre),
     path('powitanie/<imie>/<nazwisko>', powitanie),
