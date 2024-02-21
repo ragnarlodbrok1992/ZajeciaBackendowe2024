@@ -21,7 +21,7 @@ from viewer.models import Genre, Movie
 from viewer.views import (
     MoviesAllView, powitanie,
     MoviesByGenreView, StronaGlownaView,
-    GenresAllView
+    GenresAllView, MovieCreateView
 )
 
 admin.site.register(Genre)
@@ -36,6 +36,7 @@ urlpatterns = [
     path('', StronaGlownaView.as_view(), name='index'),
     path('movies/', MoviesAllView.as_view(), name='movies'),
     path('movies/<genre>', MoviesByGenreView.as_view()),
+    path('movie/create', MovieCreateView.as_view(), name='movies_create'),
     path('genres/', GenresAllView.as_view(), name='genres'),
     path('powitanie/<imie>/<nazwisko>', powitanie),
 ]

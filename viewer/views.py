@@ -1,9 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import (
+    TemplateView, ListView, FormView
+)
 
 from viewer.models import Movie, Genre
+from viewer.forms import MovieForm
 
 
 class MoviesAllView(TemplateView):
@@ -45,3 +48,8 @@ class MoviesByGenreView(View):
             request, template_name='movies.html',
             context={'movies': movies}
         )
+
+
+class MovieCreateView(FormView):
+    template_name = 'form.html'
+    form_class = MovieForm
