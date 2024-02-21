@@ -36,7 +36,7 @@ urlpatterns = [
     path('', StronaGlownaView.as_view(), name='index'),
     path('movies/', MoviesAllView.as_view(), name='movies'),
     path('movies/<genre>', MoviesByGenreView.as_view()),
-    path('movie/create', MovieCreateView.as_view(), name='movies_create'),
+    path('movie/create', MovieCreateView.as_view(), name='movie_create'),
     path('genres/', GenresAllView.as_view(), name='genres'),
     path('powitanie/<imie>/<nazwisko>', powitanie),
 ]
