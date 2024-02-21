@@ -6,7 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import (
-    TemplateView, ListView, CreateView
+    TemplateView, ListView, CreateView, UpdateView,
+    DeleteView
 )
 
 from viewer.models import Movie, Genre
@@ -64,3 +65,21 @@ class MovieCreateView(CreateView):
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
         return super().form_invalid(form)
+
+
+class MovieUpdateView(UpdateView):
+
+    template_name = 'form.html'
+    model = Movie
+    form_class = MovieForm
+    success_url = reverse_lazy('index')
+
+    def form_invalid(self, form):
+        LOGGER.warning('User provided invalid data while updating a movie.')
+        return super().form_invalid(form)
+
+
+class MovieDeleteView(DeleteView):
+    template_name = 'movie_confirm_delete.html'
+    model = Movie
+    success_url = reverse_lazy('index')

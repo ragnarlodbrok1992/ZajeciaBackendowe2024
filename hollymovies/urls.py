@@ -21,7 +21,8 @@ from viewer.models import Genre, Movie
 from viewer.views import (
     MoviesAllView, powitanie,
     MoviesByGenreView, StronaGlownaView,
-    GenresAllView, MovieCreateView
+    GenresAllView, MovieCreateView,
+    MovieUpdateView, MovieDeleteView
 )
 
 admin.site.register(Genre)
@@ -37,6 +38,8 @@ urlpatterns = [
     path('movies/', MoviesAllView.as_view(), name='movies'),
     path('movies/<genre>', MoviesByGenreView.as_view()),
     path('movie/create', MovieCreateView.as_view(), name='movie_create'),
+    path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
+    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),
     path('genres/', GenresAllView.as_view(), name='genres'),
     path('powitanie/<imie>/<nazwisko>', powitanie),
 ]
