@@ -22,3 +22,20 @@ class Movie(Model):
 
     def __str__(self):
         return self.title
+
+
+""" Zadanie 6 
+a) Dodaj model Actor zawierajacy pola:
+  - Imie
+  - Nazwisko
+  - Data urodzenia
+  - Wiek
+  - Nagrody
+  - Miejsce urodzenia 
+  
+b) Stworz plik migracji (makemigration)
+c) Przemigruj baze danych
+d) Stworz widok ListView dla sciezki "actors/"
+e) Stworz osobny szablon
+f) Dodaj przycisk w pasku glownym aplikacji kierujacy do "actors/"
+"""
