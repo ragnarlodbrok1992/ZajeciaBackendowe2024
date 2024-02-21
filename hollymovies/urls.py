@@ -17,15 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from viewer.models import Genre, Movie
+from viewer.models import Genre, Movie, Actor
 from viewer.views import (
-    MoviesAllView, powitanie,
-    MoviesByGenreView, StronaGlownaView,
-    GenresAllView
+    MoviesAllView,
+    MoviesByGenreView,
+    StronaGlownaView,
+    GenresAllView,
+    ActorsAllView,
+    MovieCreateView
 )
 
 admin.site.register(Genre)
 admin.site.register(Movie)
+admin.site.register(Actor)
 
 # Problem: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
 # Rozwiazanie: python -Xutf8 manage.py dumpdata viewer --output fixtures.json
@@ -35,7 +39,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', StronaGlownaView.as_view(), name='index'),
     path('movies/', MoviesAllView.as_view(), name='movies'),
-    path('movies/<genre>', MoviesByGenreView.as_view()),
+    path('movies/<genre>/', MoviesByGenreView.as_view()),
+    path('movie/create/', MovieCreateView.as_view(), name='movie_create'),
     path('genres/', GenresAllView.as_view(), name='genres'),
-    path('powitanie/<imie>/<nazwisko>', powitanie),
+    path('actors/', ActorsAllView.as_view(), name='actors')
 ]

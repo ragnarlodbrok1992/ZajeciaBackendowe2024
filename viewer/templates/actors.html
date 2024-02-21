@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <table border="1">
+        <tr>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Date of birth</td>
+            <td>Place of birth</td>
+            <td>Age</td>
+            <td>Awards</td>
+        </tr>
+        {% for actor in object_list %}
+        <tr>
+            <td>{{ actor.name }}</td>
+            <td>{{ actor.surname }}</td>
+            <td>{{ actor.birth_date }}</td>
+            <td>{{ actor.place_of_birth }}</td>
+            <td>{{ actor.age }}</td>
+            <td>{{ actor.awards }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

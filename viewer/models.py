@@ -24,6 +24,18 @@ class Movie(Model):
         return self.title
 
 
+class Actor(Model):
+    name = CharField(max_length=64)
+    surname = CharField(max_length=64)
+    birth_date = DateField()
+    age = IntegerField()
+    awards = TextField()
+    place_of_birth = CharField(max_length=128)
+
+    def __str__(self):
+        return f"{self.name} {self.surname}"
+
+
 """ Zadanie 6 
 a) Dodaj model Actor zawierajacy pola:
   - Imie
@@ -33,7 +45,7 @@ a) Dodaj model Actor zawierajacy pola:
   - Nagrody
   - Miejsce urodzenia 
   
-b) Stworz plik migracji (makemigration)
+b) Stworz plik migracji (makemigrations)
 c) Przemigruj baze danych
 d) Stworz widok ListView dla sciezki "actors/"
 e) Stworz osobny szablon
