@@ -36,18 +36,17 @@ class Actor(Model):
         return f"{self.name} {self.surname}"
 
 
-""" Zadanie 6 
-a) Dodaj model Actor zawierajacy pola:
-  - Imie
-  - Nazwisko
-  - Data urodzenia
-  - Wiek
-  - Nagrody
-  - Miejsce urodzenia 
-  
-b) Stworz plik migracji (makemigrations)
-c) Przemigruj baze danych
-d) Stworz widok ListView dla sciezki "actors/"
-e) Stworz osobny szablon
-f) Dodaj przycisk w pasku glownym aplikacji kierujacy do "actors/"
+"""
+Zadanie 7:
+Stworz Formularz do tworzenia obiektow modelu Actor.
+
+a) Stworz Form dla Actora (osobny plik forms.py).
+b) Dodaj validator dla imienia i nazwiska.
+c) Stworz odpowiedni widok.
+d) Data urodzenia musi byc sprawdzona - aktor musi mieć co najmniej 16 lat.
+e) Stworz template formularza do tworzenia obiektow aktorow. Pamietaj o csrf tokenie!
+f) Pamietaj o dodaniu patha.
+
+Przetestuj swoje rozwiazanie i dodaj paru aktorow.
+
 """
