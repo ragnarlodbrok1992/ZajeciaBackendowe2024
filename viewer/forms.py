@@ -34,8 +34,23 @@ class MovieForm(Form):
     release_date = PastMonthField()
     description = CharField(widget=Textarea, required=False)
 
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #
+    #     description = cleaned_data['description']
+    #
+    #     print("Description in clean method in MovieForm class", description)
+    #
+    #     return cleaned_data
+
     def clean_description(self):
         initial = self.cleaned_data['description']
         sentences = re.sub(r'\s*\.\s*', '.', initial).split()
 
-        return '. '.join(sentence.capitalize() for sentence in sentences)
+        print("Description in clean_description method in MovieForm class -->", initial)
+
+        result = '. '.join(sentence.capitalize() for sentence in sentences)
+
+        print("Description after changes in clean_description method in MovieForm class -->", result)
+
+        return result
