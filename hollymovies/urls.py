@@ -26,6 +26,7 @@ from viewer.views import (
     ActorsAllView,
     MovieCreateView,
     MovieUpdateView,
+    MovieDeleteView,
     ActorCreateView
 )
 
@@ -44,6 +45,8 @@ urlpatterns = [
     path('movies/<genre>/', MoviesByGenreView.as_view()),
     path('movie/create/', MovieCreateView.as_view(), name='movie_create'),
     path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
+    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),
+    #TODO: Informacje na temat sluga w URLconf
     path('genres/', GenresAllView.as_view(), name='genres'),
     path('actors/', ActorsAllView.as_view(), name='actors'),
     path('actor/create/', ActorCreateView.as_view(), name='actor_create')

@@ -3,7 +3,7 @@ from logging import getLogger
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import (
-    ListView, CreateView, UpdateView
+    ListView, CreateView, UpdateView, DeleteView
 )
 
 # TODO: TemplateView renderuje template raz a potem nie reaguje na zmiany w bazie danych modeli - do poprawienia?
@@ -80,7 +80,21 @@ class MovieUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
+class MovieDeleteView(DeleteView):
+    template_name = 'movie_confirm_delete.html'
+    model = Movie
+    success_url = reverse_lazy('movies')
+
+
 class ActorCreateView(CreateView):
     template_name = 'form.html'
     form_class = ActorForm
     success_url = reverse_lazy('actors')
+
+
+"""
+ZADANIE 9:
+
+Zaimplementuj pełnego CRUD'a dla Aktorów.
+
+"""
