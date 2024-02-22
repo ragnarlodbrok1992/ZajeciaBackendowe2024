@@ -7,12 +7,19 @@ from django.forms import (
     IntegerField, DateField, Textarea
 )
 
-from viewer.models import Movie
+from viewer.models import Movie, Actor
 
 
 def capitalized_validator(value):
     if value[0].islower():
         raise ValidationError("Value must be capitalized.")
+
+
+def age_validator(value):
+    age = (date.today() - value).days / 365
+    print("Age:", age)
+    if age < 16:
+        raise ValidationError("Actor must be at least 16 years old.")
 
 
 class PastMonthField(DateField):
@@ -25,6 +32,17 @@ class PastMonthField(DateField):
     def clean(self, value):
         result = super().clean(value)
         return date(year=result.year, month=result.month, day=result.day)
+
+
+class ActorForm(ModelForm):
+
+    class Meta:
+        model = Actor
+        fields = '__all__'
+
+    name = CharField(max_length=64, validators=[capitalized_validator])
+    surname = CharField(max_length=64, validators=[capitalized_validator])
+    birth_date = DateField(validators=[age_validator])
 
 
 class MovieForm(ModelForm):

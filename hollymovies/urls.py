@@ -24,7 +24,8 @@ from viewer.views import (
     StronaGlownaView,
     GenresAllView,
     ActorsAllView,
-    MovieCreateView
+    MovieCreateView,
+    ActorCreateView
 )
 
 admin.site.register(Genre)
@@ -42,5 +43,6 @@ urlpatterns = [
     path('movies/<genre>/', MoviesByGenreView.as_view()),
     path('movie/create/', MovieCreateView.as_view(), name='movie_create'),
     path('genres/', GenresAllView.as_view(), name='genres'),
-    path('actors/', ActorsAllView.as_view(), name='actors')
+    path('actors/', ActorsAllView.as_view(), name='actors'),
+    path('actor/create/', ActorCreateView.as_view(), name='actor_create')
 ]

@@ -9,7 +9,7 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 from viewer.models import Movie, Genre, Actor
-from viewer.forms import MovieForm
+from viewer.forms import MovieForm, ActorForm
 
 
 LOGGER = getLogger()
@@ -65,3 +65,9 @@ class MovieCreateView(CreateView):
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
         return super().form_invalid(form)
+
+
+class ActorCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = ActorForm
+    success_url = reverse_lazy('actors')
