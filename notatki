@@ -9,3 +9,15 @@ https://www.google.com/search?q=SDA
     View -
     Path -
     Rejestracja -
+
+""" ZADANIE 10:
+
+  1. Stworz osobna strone do wyboru filmu/aktorow.
+  2. Strona ta pozwala na wybor ktoregokolwiek z filmu/aktora.
+  3. Strona posiada dwa przyciski - edytuj oraz usun.
+  4. Wybor tego przycisku przenosi nas do konkretnego formularza.
+  5. Strony powinny miec odnosnik na gorze aplikacji - podobnie jak obecnie lista filmow/gatunkow/aktorow.
+
+  6. Stworz osobna strone do tworzenia nowego filmu lub aktora.
+
+"""
