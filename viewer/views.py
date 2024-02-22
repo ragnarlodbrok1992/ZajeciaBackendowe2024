@@ -14,6 +14,7 @@ from viewer.forms import MovieForm
 
 class MoviesAllView(TemplateView):
     template_name = 'movies.html'
+    model = Movie
     extra_context = {'movies': Movie.objects.all()}
 
 

@@ -34,14 +34,14 @@ class MovieForm(Form):
     release_date = PastMonthField()
     description = CharField(widget=Textarea, required=False)
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #
-    #     description = cleaned_data['description']
-    #
-    #     print("Description in clean method in MovieForm class", description)
-    #
-    #     return cleaned_data
+    def clean(self):
+        cleaned_data = super().clean()
+
+        description = cleaned_data['description']
+
+        print("Description in clean method in MovieForm class", description)
+
+        return cleaned_data
 
     def clean_description(self):
         initial = self.cleaned_data['description']
