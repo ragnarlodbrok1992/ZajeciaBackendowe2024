@@ -3,7 +3,7 @@ from logging import getLogger
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import (
-    TemplateView, ListView, FormView
+    TemplateView, ListView, CreateView
 )
 
 from django.urls import reverse_lazy
@@ -12,14 +12,14 @@ from viewer.models import Movie, Genre, Actor
 from viewer.forms import MovieForm
 
 
+LOGGER = getLogger()
+LOGGER.setLevel('INFO')
+
+
 class MoviesAllView(TemplateView):
     template_name = 'movies.html'
     model = Movie
     extra_context = {'movies': Movie.objects.all()}
-
-
-LOGGER = getLogger()
-LOGGER.setLevel('INFO')
 
 
 class GenresAllView(ListView):
@@ -57,28 +57,10 @@ class MoviesByGenreView(View):
         )
 
 
-class MovieCreateView(FormView):
+class MovieCreateView(CreateView):
     template_name = 'form.html'
     form_class = MovieForm
     success_url = reverse_lazy('movies')
-
-    def form_valid(self, form):
-        result = super().form_valid(form)
-
-        cleaned_data = form.cleaned_data
-
-        print("Cleaned data:", cleaned_data)
-        # LOGGER.info("Cleaned data:", cleaned_data)
-
-        Movie.objects.create(
-            title=cleaned_data['title'],
-            genre=cleaned_data['genre'],
-            rating=cleaned_data['rating'],
-            release_date=cleaned_data['release_date'],
-            description=cleaned_data['description']
-        )
-
-        return result
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')

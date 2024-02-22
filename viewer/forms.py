@@ -3,11 +3,11 @@ from datetime import date
 from django.core.exceptions import ValidationError
 
 from django.forms import (
-    Form, CharField, ModelChoiceField,
+    ModelForm, CharField, ModelChoiceField,
     IntegerField, DateField, Textarea
 )
 
-from viewer.models import Genre
+from viewer.models import Movie
 
 
 def capitalized_validator(value):
@@ -27,19 +27,23 @@ class PastMonthField(DateField):
         return date(year=result.year, month=result.month, day=result.day)
 
 
-class MovieForm(Form):
-    title = CharField(max_length=128, validators=[capitalized_validator])
-    genre = ModelChoiceField(queryset=Genre.objects)
+class MovieForm(ModelForm):
+
+    class Meta:
+        model = Movie
+        fields = '__all__'
+        # exclude = ['description']
+
+    title = CharField(validators=[capitalized_validator])
     rating = IntegerField(min_value=1, max_value=10)
     release_date = PastMonthField()
-    description = CharField(widget=Textarea, required=False)
 
     def clean(self):
         cleaned_data = super().clean()
 
-        description = cleaned_data['description']
+        # description = cleaned_data['description']
 
-        print("Description in clean method in MovieForm class", description)
+        # print("Description in clean method in MovieForm class", description)
 
         return cleaned_data
 
@@ -54,3 +58,10 @@ class MovieForm(Form):
         print("Description after changes in clean_description method in MovieForm class -->", result)
 
         return result
+
+
+"""
+ZADANIE 8
+a) Przekształć klasę ActorForm żeby dziedziczyła po ModelForm.
+b) Widok dla aktora przekształć w CreateView.
+"""
