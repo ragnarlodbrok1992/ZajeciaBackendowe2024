@@ -3,8 +3,10 @@ from logging import getLogger
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import (
-    TemplateView, ListView, CreateView
+    ListView, CreateView, UpdateView
 )
+
+# TODO: TemplateView renderuje template raz a potem nie reaguje na zmiany w bazie danych modeli - do poprawienia?
 
 from django.urls import reverse_lazy
 
@@ -16,10 +18,10 @@ LOGGER = getLogger()
 LOGGER.setLevel('INFO')
 
 
-class MoviesAllView(TemplateView):
+class MoviesAllView(ListView):
     template_name = 'movies.html'
     model = Movie
-    extra_context = {'movies': Movie.objects.all()}
+    # extra_context = {'movies': Movie.objects.all()}  # Pozostalosc po TemplateView
 
 
 class GenresAllView(ListView):
@@ -64,6 +66,17 @@ class MovieCreateView(CreateView):
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
+        return super().form_invalid(form)
+
+
+class MovieUpdateView(UpdateView):
+    template_name = 'form.html'
+    model = Movie
+    form_class = MovieForm
+    success_url = reverse_lazy('movies')
+
+    def form_invalid(self, form):
+        LOGGER.warning('User provided incorrect data while updating movie.')
         return super().form_invalid(form)
 
 

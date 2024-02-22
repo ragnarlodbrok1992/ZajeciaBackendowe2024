@@ -3,7 +3,7 @@
 {% block content %}
 
     <ul>
-        {% for movie in movies %}
+        {% for movie in object_list %}
             <li>
                 {{ movie.title }} ({{ movie.release_date }}) - {{movie.genre.name}}
             </li>
