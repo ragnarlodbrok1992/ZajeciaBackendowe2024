@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>
+        <button>Create Movie</button>
+    </p>
+
+    <p>
+        <button>Update Movie</button>
+        <button>Delete Movie</button>
+
+        <select name="movie_selection">
+            {% for movie in movies %}
+                <option value="{{ movie.id }}">{{ movie.title }}</option>
+            {% endfor %}
+        </select>
+
+    </p>
+{% endblock %}

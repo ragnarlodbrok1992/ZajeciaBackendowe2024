@@ -42,6 +42,17 @@ class StronaGlownaView(View):
         )
 
 
+class MovieSelection(View):
+    def get(self, request):
+
+        movies = Movie.objects.all()
+
+        return render(
+            request, template_name='movie_selection.html',
+            context={'movies': movies}
+        )
+
+
 class MoviesByGenreView(View):
     def get(self, request, genre):
         # movies = Movie.objects.filter(genre__name=genre)
