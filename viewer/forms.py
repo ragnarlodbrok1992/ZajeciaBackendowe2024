@@ -35,7 +35,6 @@ class PastMonthField(DateField):
 
 
 class ActorForm(ModelForm):
-
     class Meta:
         model = Actor
         fields = '__all__'
@@ -51,6 +50,11 @@ class MovieForm(ModelForm):
         model = Movie
         fields = '__all__'
         # exclude = ['description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
     title = CharField(validators=[capitalized_validator])
     rating = IntegerField(min_value=1, max_value=10)
@@ -76,10 +80,3 @@ class MovieForm(ModelForm):
         print("Description after changes in clean_description method in MovieForm class -->", result)
 
         return result
-
-
-"""
-ZADANIE 8
-a) Przekształć klasę ActorForm żeby dziedziczyła po ModelForm.
-b) Widok dla aktora przekształć w CreateView.
-"""
