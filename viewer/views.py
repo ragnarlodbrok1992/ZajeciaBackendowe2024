@@ -1,6 +1,6 @@
 from logging import getLogger
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import (
     ListView, CreateView, UpdateView, DeleteView
@@ -8,7 +8,7 @@ from django.views.generic import (
 
 # TODO: TemplateView renderuje template raz a potem nie reaguje na zmiany w bazie danych modeli - do poprawienia?
 
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from viewer.models import Movie, Genre, Actor
 from viewer.forms import MovieForm, ActorForm
@@ -51,6 +51,19 @@ class MovieSelection(View):
             request, template_name='movie_selection.html',
             context={'movies': movies}
         )
+
+    def post(self, request):
+        button_url = request.POST.get('button')
+        selected_movie = request.POST.get('movie_selection')
+
+        if button_url == 'create_movie':
+            return redirect(reverse('movie_create'))
+        elif button_url == 'update_movie':
+            return redirect(reverse('movie_update', args=[selected_movie]))
+        elif button_url == 'delete_movie':
+            return redirect(reverse('movie_delete', args=[selected_movie]))
+        else:
+            return redirect('index')
 
 
 class MoviesByGenreView(View):

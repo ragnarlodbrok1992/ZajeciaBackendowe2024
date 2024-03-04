@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+<form action="" method="post">
+    {% csrf_token %}
     <p>
-        <button>Create Movie</button>
+        <button type="submit" name="button" value="create_movie">Create Movie</button>
     </p>
 
     <p>
-        <button>Update Movie</button>
-        <button>Delete Movie</button>
+        <button type="submit" name="button" value="update_movie">Update Movie</button>
+
+        <button type="submit" name="button" value="delete_movie">Delete Movie</button>
 
         <select name="movie_selection">
             {% for movie in movies %}
@@ -16,4 +19,5 @@
         </select>
 
     </p>
+</form>
 {% endblock %}
