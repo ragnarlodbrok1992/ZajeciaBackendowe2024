@@ -2,7 +2,13 @@
 
 {% block content %}
 
-<h1>Witamy w aplikacji HollyMovies!</h1>
+{{ hello_message }}
+
+<h1> {{ date_created }} </h1>
+
+{% for autor in autors %}
+    <h2> {{ autor }} </h2>
+{% endfor %}
 
 <!-- TODO: getting this element by ID -->
 <!--
