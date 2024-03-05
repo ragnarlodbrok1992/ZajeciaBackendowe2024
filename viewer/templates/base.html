@@ -17,7 +17,7 @@
     {% endcomment %}
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container fixed">
         <a class="navbar-brand" href="{% url 'index' %}">
@@ -31,9 +31,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="{% url 'index' %}">
-              Home
-            </a>
             <a class="nav-item nav-link active" href="{% url 'movies' %}">
               Movies
             </a>
@@ -55,6 +52,16 @@
         {% block content %}{% endblock %}
       </div>
     </div>
-  </body>
 
+    <footer class="bg-body-tertiary text-center text-lg-start mt-auto">
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.20);">
+        {% comment "Turn off copyright" %}
+        <p style="font-family: monospace;">© 2024: Copyright Maciej Oliwa</p>
+        {% endcomment %}
+        <p style="font-family: monospace;">{{ date_created }}</p>
+        <p style="font-family: cursive;">{{ ciekawostka }}</p>
+        <p>{{ current_time_and_date }}</p>
+      </div>
+    </footer>
+  </body>
 </html>

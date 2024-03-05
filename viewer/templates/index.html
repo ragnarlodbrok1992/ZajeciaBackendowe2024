@@ -4,11 +4,13 @@
 
 {{ hello_message }}
 
+{% comment "Some changes" %}
 <h1> {{ date_created }} </h1>
 
 {% for autor in autors %}
     <h2> {{ autor }} </h2>
 {% endfor %}
+{% endcomment %}
 
 <!-- TODO: getting this element by ID -->
 <!--

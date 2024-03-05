@@ -64,7 +64,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'viewer.templates.context_processors.welcome_message',
-                'viewer.templates.context_processors.autorzy'
+                'viewer.templates.context_processors.autorzy',
+                'viewer.templates.context_processors.ciekawostki',
+                'viewer.templates.context_processors.data_i_godzina'
             ],
         },
     },
@@ -72,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hollymovies.wsgi.application'
 
+TIME_ZONE = 'Europe/Warsaw'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
