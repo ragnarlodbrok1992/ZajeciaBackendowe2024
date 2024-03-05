@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import (
     ListView, CreateView, UpdateView, DeleteView
 )
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
 
 # TODO: TemplateView renderuje template raz a potem nie reaguje na zmiany w bazie danych modeli - do poprawienia?
 
@@ -119,13 +119,16 @@ class ActorCreateView(LoginRequiredMixin, CreateView):
     form_class = ActorForm
     success_url = reverse_lazy('actors')
 
+
 class SubmittableLoginView(LoginView):
     template_name = 'form.html'
+    success_url = reverse_lazy('index')
 
 
-"""
-ZADANIE 9:
+class SubmittablePasswordChangeView(PasswordChangeView):
+    template_name = 'form.html'
+    success_url = reverse_lazy('index')
 
-Zaimplementuj pełnego CRUD'a dla Aktorów.
 
-"""
+class CustomLogoutView(LogoutView):
+    template_name = 'accounts/logout.html'
