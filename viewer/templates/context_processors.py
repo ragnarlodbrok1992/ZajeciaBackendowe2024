@@ -39,13 +39,16 @@ def request_logger(request):
 
 
 def ciekawostki(request):
-    ciekawostka = random.choice(CIEKAWOSTKI)
-    return {'ciekawostka': ciekawostka}
+    return {'ciekawostka': random.choice(CIEKAWOSTKI)}
 
 
 def data_i_godzina(request):
-    dig = datetime.datetime.now()
-    return {'current_time_and_date': str(dig)}
+    return {'current_time_and_date': datetime.datetime.now()}
+
+
+def num_of_actors_and_movies(request):
+    return {'num_of_actors': Actor.objects.count(),
+            'num_of_movies': Movie.objects.count()}
 
 
 """
