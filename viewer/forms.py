@@ -2,12 +2,18 @@ import re
 from datetime import date
 from django.core.exceptions import ValidationError
 
+from django.db.transaction import atomic
+
 from django.forms import (
     ModelForm, CharField, ModelChoiceField,
     IntegerField, DateField, Textarea
 )
 
-from viewer.models import Movie, Actor
+from django.contrib.auth.forms import (
+    AuthenticationForm, PasswordChangeForm, UserCreationForm
+)
+
+from viewer.models import Movie, Actor, Profile
 
 
 def capitalized_validator(value):
@@ -79,4 +85,31 @@ class MovieForm(ModelForm):
 
         print("Description after changes in clean_description method in MovieForm class -->", result)
 
+        return result
+
+
+class SignUpForm(UserCreationForm):
+    biography = CharField(
+        label="Tell us your movies story!", widget=Textarea, min_length=40
+    )
+
+    class Meta(UserCreationForm.Meta):
+        model = Profile
+        fields = ['username', 'first_name', 'biography']
+
+    @atomic
+    def save(self, commit=True):
+        self.instance.is_active = False
+        result = super().save(commit=False)
+        password1, password2 = self.cleaned_data['password1'], self.cleaned_data['password2']
+        if password1 == password2:
+            profile = Profile(biography=self.cleaned_data['biography'],
+                              username=self.cleaned_data['username'],
+                              first_name=self.cleaned_data['first_name'])
+            profile.set_password(password1)
+
+        else:
+            raise ValidationError("Passwords do not match!")
+        if commit:
+            profile.save()
         return result

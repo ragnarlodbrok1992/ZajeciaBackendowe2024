@@ -13,7 +13,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from viewer.models import Movie, Genre, Actor
-from viewer.forms import MovieForm, ActorForm
+from viewer.forms import MovieForm, ActorForm, SignUpForm
 
 
 LOGGER = getLogger()
@@ -132,3 +132,9 @@ class SubmittablePasswordChangeView(PasswordChangeView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'accounts/logout.html'
+
+
+class SignUpView(CreateView):
+    template_name = 'form.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy('index')

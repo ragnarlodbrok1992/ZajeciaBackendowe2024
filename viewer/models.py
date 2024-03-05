@@ -4,6 +4,9 @@ from django.db.models import (
     TextField
 )
 
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import UserManager
+
 
 class Genre(Model):
     name = CharField(max_length=128)
@@ -36,17 +39,14 @@ class Actor(Model):
         return f"{self.name} {self.surname}"
 
 
-"""
-Zadanie 7:
-Stworz Formularz do tworzenia obiektow modelu Actor.
+class Profile(AbstractBaseUser):
+    username = CharField(max_length=32, unique=True)
+    first_name = CharField(max_length=32)
+    biography = TextField(blank=True)
 
-a) Stworz Form dla Actora (osobny plik forms.py).
-b) Dodaj validator dla imienia i nazwiska.
-c) Stworz odpowiedni widok.
-d) Data urodzenia musi byc sprawdzona - aktor musi mieć co najmniej 16 lat.
-e) Stworz template formularza do tworzenia obiektow aktorow. Pamietaj o csrf tokenie!
-f) Pamietaj o dodaniu patha.
+    objects = UserManager()
 
-Przetestuj swoje rozwiazanie i dodaj paru aktorow.
+    USERNAME_FIELD = 'username'
 
-"""
+    def __str__(self):
+        return self.username
