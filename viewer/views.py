@@ -5,10 +5,12 @@ from django.views import View
 from django.views.generic import (
     ListView, CreateView, UpdateView, DeleteView
 )
+from django.contrib.auth.views import LoginView
 
 # TODO: TemplateView renderuje template raz a potem nie reaguje na zmiany w bazie danych modeli - do poprawienia?
 
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from viewer.models import Movie, Genre, Actor
 from viewer.forms import MovieForm, ActorForm
@@ -42,7 +44,7 @@ class StronaGlownaView(View):
         )
 
 
-class MovieSelection(View):
+class MovieSelection(LoginRequiredMixin, View):
     def get(self, request):
 
         movies = Movie.objects.all()
@@ -83,7 +85,7 @@ class MoviesByGenreView(View):
         )
 
 
-class MovieCreateView(CreateView):
+class MovieCreateView(LoginRequiredMixin, CreateView):
     # template_name = 'form.html'
     template_name = 'model.html'
     form_class = MovieForm
@@ -94,7 +96,7 @@ class MovieCreateView(CreateView):
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(LoginRequiredMixin, UpdateView):
     # template_name = 'form.html'
     template_name = 'model.html'
     model = Movie
@@ -106,16 +108,19 @@ class MovieUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class MovieDeleteView(DeleteView):
+class MovieDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('movies')
 
 
-class ActorCreateView(CreateView):
+class ActorCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = ActorForm
     success_url = reverse_lazy('actors')
+
+class SubmittableLoginView(LoginView):
+    template_name = 'form.html'
 
 
 """
