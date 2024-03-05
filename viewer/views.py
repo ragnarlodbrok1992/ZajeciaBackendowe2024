@@ -1,5 +1,8 @@
 from logging import getLogger
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import (
@@ -83,7 +86,7 @@ class MoviesByGenreView(View):
         )
 
 
-class MovieCreateView(CreateView):
+class MovieCreateView(LoginRequiredMixin, CreateView):
     # template_name = 'form.html'
     template_name = 'model.html'
     form_class = MovieForm
@@ -94,7 +97,7 @@ class MovieCreateView(CreateView):
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(LoginRequiredMixin, UpdateView):
     # template_name = 'form.html'
     template_name = 'model.html'
     model = Movie
@@ -106,7 +109,7 @@ class MovieUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class MovieDeleteView(DeleteView):
+class MovieDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('movies')
@@ -116,6 +119,10 @@ class ActorCreateView(CreateView):
     template_name = 'form.html'
     form_class = ActorForm
     success_url = reverse_lazy('actors')
+
+
+class SubmittableLoginView(LoginView):
+    template_name = 'form.html'
 
 
 """

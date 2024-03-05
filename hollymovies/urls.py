@@ -31,7 +31,8 @@ from viewer.views import (
     MovieUpdateView,
     MovieDeleteView,
     ActorCreateView,
-    MovieSelection
+    MovieSelection,
+    SubmittableLoginView
 )
 
 admin.site.register(Genre)
@@ -45,6 +46,7 @@ admin.site.register(Actor)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', StronaGlownaView.as_view(), name='index'),
+    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
     path('movies/', MoviesAllView.as_view(), name='movies'),
     path('movies/<genre>/', MoviesByGenreView.as_view()),
     path('movie/select/', MovieSelection.as_view(), name='movie_selection'),
