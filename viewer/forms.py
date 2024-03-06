@@ -3,11 +3,10 @@ from datetime import date
 from django.core.exceptions import ValidationError
 
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 from django.forms import (
-    ModelForm, CharField, ModelChoiceField,
-    IntegerField, DateField, Textarea
+    ModelForm, CharField,
+    IntegerField, DateField,
 )
 
 from viewer.models import Movie, Actor
