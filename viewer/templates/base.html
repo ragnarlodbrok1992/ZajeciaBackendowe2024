@@ -61,11 +61,12 @@
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit">Logout</button>
+                    {% comment "TODO: make this widget submit for" %}
+                      <a class="dropdown-item text-right" href="{% url 'logout' %}">Logout</a>
+                    {% endcomment %}
                   </form>
                 </div>
-              {% comment "TODO: jak zaimplementujesz zmiane hasla" %}
               <a class="dropdown-item text-right" href="{% url 'password_change' %}">Change password</a>
-              {% endcomment %}
             </div>
 
             {% else %}

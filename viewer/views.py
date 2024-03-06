@@ -1,7 +1,7 @@
 from logging import getLogger
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 
 from django.shortcuts import render, redirect
 from django.views import View
@@ -140,3 +140,8 @@ class SubmittableLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'accounts/logout.html'
+
+
+class SubmittablePasswordChangeView(PasswordChangeView):
+    template_name = 'form.html'
+    success_url = reverse_lazy('index')
