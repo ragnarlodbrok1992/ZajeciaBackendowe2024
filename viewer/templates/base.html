@@ -56,7 +56,6 @@
               {% else %}Hello, {{ user.username }}!{% endif %}
             </a>
 
-            {% comment "TODO jak zaimplementujesz logout" %}
             <div class="dropdown-menu dropdown-menu-right">
                 <div style="text-align: center;">
                   <form method="post" action="{% url 'logout' %}">
@@ -64,9 +63,10 @@
                     <button type="submit">Logout</button>
                   </form>
                 </div>
+              {% comment "TODO: jak zaimplementujesz zmiane hasla" %}
               <a class="dropdown-item text-right" href="{% url 'password_change' %}">Change password</a>
+              {% endcomment %}
             </div>
-            {% endcomment %}
 
             {% else %}
             <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">

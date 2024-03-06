@@ -1,7 +1,7 @@
 from logging import getLogger
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 from django.shortcuts import render, redirect
 from django.views import View
@@ -138,9 +138,5 @@ class SubmittableLoginView(LoginView):
     template_name = 'form.html'
 
 
-"""
-ZADANIE 9:
-
-Zaimplementuj pełnego CRUD'a dla Aktorów.
-
-"""
+class CustomLogoutView(LogoutView):
+    template_name = 'accounts/logout.html'
