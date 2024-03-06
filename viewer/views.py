@@ -14,7 +14,7 @@ from django.views.generic import (
 from django.urls import reverse_lazy, reverse
 
 from viewer.models import Movie, Genre, Actor
-from viewer.forms import MovieForm, ActorForm
+from viewer.forms import MovieForm, ActorForm, SignUpForm
 
 
 LOGGER = getLogger()
@@ -144,4 +144,10 @@ class CustomLogoutView(LogoutView):
 
 class SubmittablePasswordChangeView(PasswordChangeView):
     template_name = 'form.html'
+    success_url = reverse_lazy('index')
+
+
+class SignUpView(CreateView):
+    template_name = 'form.html'
+    form_class = SignUpForm
     success_url = reverse_lazy('index')

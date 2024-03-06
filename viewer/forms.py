@@ -2,6 +2,9 @@ import re
 from datetime import date
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 from django.forms import (
     ModelForm, CharField, ModelChoiceField,
     IntegerField, DateField, Textarea
@@ -80,3 +83,13 @@ class MovieForm(ModelForm):
         print("Description after changes in clean_description method in MovieForm class -->", result)
 
         return result
+
+
+class SignUpForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+    def save(self, commit=True):
+        # self.instance.is_active = False  # Czy uzytkownik jest aktywny po zarejestrowaniu?
+        return super().save(commit)
