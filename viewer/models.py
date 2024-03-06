@@ -1,8 +1,24 @@
 from django.db.models import (
-    Model, CharField, DO_NOTHING, DateField,
-    DateTimeField, ForeignKey, IntegerField,
-    TextField
+    Model,
+    CharField,
+    DateField,
+    DateTimeField,
+    ForeignKey,
+    IntegerField,
+    TextField,
+    BooleanField,
+    CASCADE,
+    DO_NOTHING
 )
+
+from django.contrib.auth.models import AbstractUser
+
+
+class AccountType(Model):
+    type = CharField(max_length=64)
+
+    def __str__(self):
+        return self.type
 
 
 class Genre(Model):
@@ -36,17 +52,37 @@ class Actor(Model):
         return f"{self.name} {self.surname}"
 
 
+class Profile(AbstractUser):
+    biography = TextField(blank=True)
+    is_director = BooleanField(null=True)
+    account_type = ForeignKey(AccountType, on_delete=CASCADE, blank=True)
+
+    # W przypadku tworzenia nowego uzytkownika, nadajemy mu wartosc account_type na 'regular'
+    # Jezeli tej wartosci nie ma w bazie - chcemy ja stworzyc
+    def save(self, *args, **kwargs):
+        self.account_type, create = AccountType.objects.get_or_create(
+            type='regular',
+        )
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.username
+
+
 """
-Zadanie 7:
-Stworz Formularz do tworzenia obiektow modelu Actor.
-
-a) Stworz Form dla Actora (osobny plik forms.py).
-b) Dodaj validator dla imienia i nazwiska.
-c) Stworz odpowiedni widok.
-d) Data urodzenia musi byc sprawdzona - aktor musi mieć co najmniej 16 lat.
-e) Stworz template formularza do tworzenia obiektow aktorow. Pamietaj o csrf tokenie!
-f) Pamietaj o dodaniu patha.
-
-Przetestuj swoje rozwiazanie i dodaj paru aktorow.
-
+ZADANIE 13:
+  Stworzcie nowy defaultowy model użytkownika który dziedziczy po
+  AbstractUser i posiada następujące pola:
+  
+  1. Biografia
+  2. IsActor   *** DLA CHETNYCH -> Jezeli uzytkownik wybierze, ze jest aktorem
+                    to niech dostanie liste filmow z bazy danych i moze sobie wybrac
+                    w ktorych grał
+  3. IsDirector
+  4. TypKonta - AccountType jako nowy model --> ForeignKey
+  5. Link do social mediow (charfield/textfield)
+    - Instagram
+    - LinkedIn
+        @ Waliduj w formularzu czy dany link zawiera dobry URL -->
+                napisz odpowiedni walidator do forma
 """

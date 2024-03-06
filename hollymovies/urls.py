@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from viewer.models import Genre, Movie, Actor
+from viewer.models import Genre, Movie, Actor, Profile, AccountType
 from viewer.views import (
     MoviesAllView,
     MoviesByGenreView,
@@ -41,6 +41,8 @@ from viewer.views import (
 admin.site.register(Genre)
 admin.site.register(Movie)
 admin.site.register(Actor)
+admin.site.register(Profile)
+admin.site.register(AccountType)
 
 # Problem: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
 # Rozwiazanie: python -Xutf8 manage.py dumpdata viewer --output fixtures.json

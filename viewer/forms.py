@@ -5,11 +5,14 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 
 from django.forms import (
-    ModelForm, CharField,
-    IntegerField, DateField,
+    ModelForm,
+    CharField,
+    IntegerField,
+    DateField,
+    Textarea
 )
 
-from viewer.models import Movie, Actor
+from viewer.models import Movie, Actor, Profile
 
 
 def capitalized_validator(value):
@@ -85,9 +88,18 @@ class MovieForm(ModelForm):
 
 
 class SignUpForm(UserCreationForm):
+    biography = CharField(
+        label="Tell us your story!",
+        widget=Textarea,
+        min_length=10,
+    )
 
     class Meta(UserCreationForm.Meta):
-        fields = ['username', 'first_name', 'last_name', 'email']
+        model = Profile
+        fields = ['username',
+                  'first_name',
+                  'biography',
+                  'is_director']
 
     def save(self, commit=True):
         # self.instance.is_active = False  # Czy uzytkownik jest aktywny po zarejestrowaniu?
