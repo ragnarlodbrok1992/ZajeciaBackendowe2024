@@ -114,6 +114,19 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
     success_url = reverse_lazy('movies')
 
+    def post(self, request, *args, **kwargs):
+
+        button_url = request.POST.get('button')
+
+        # Wymaganie 1: W przypadku wciśnięcia przycisku - nie chce usuwać filmu -
+        # wróc do strony głównej bez usuwania filmu
+        # Klient zmienił zdanie - chce wrócić do wyboru filmu
+        if button_url == "movie_select":  # Akcja wciśnięcia przycisku, która przyszła do nas
+            # z frontu (my jesteśmy backendem)
+            return redirect(reverse('movie_selection'))
+
+        return super().post(request, *args, **kwargs)
+
 
 class ActorCreateView(CreateView):
     template_name = 'form.html'
