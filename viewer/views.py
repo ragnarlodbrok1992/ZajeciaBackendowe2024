@@ -1,6 +1,6 @@
 from logging import getLogger
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 
 from django.shortcuts import render, redirect
@@ -18,7 +18,6 @@ from viewer.forms import MovieForm, ActorForm, SignUpForm
 
 
 LOGGER = getLogger()
-LOGGER.setLevel('INFO')
 
 
 class MoviesAllView(ListView):
@@ -59,6 +58,13 @@ class MovieSelection(View):
         button_url = request.POST.get('button')
         selected_movie = request.POST.get('movie_selection')
 
+        print("Debug: we are in MovieSelection view post method!")
+
+        if request.user.is_authenticated:
+            print("We are authenticated")
+
+        print("All permissions:", request.user.get_all_permissions())
+
         if button_url == 'create_movie':
             return redirect(reverse('movie_create'))
         elif button_url == 'update_movie':
@@ -86,33 +92,36 @@ class MoviesByGenreView(View):
         )
 
 
-class MovieCreateView(LoginRequiredMixin, CreateView):
+class MovieCreateView(PermissionRequiredMixin, CreateView):
     # template_name = 'form.html'
     template_name = 'model.html'
     form_class = MovieForm
     success_url = reverse_lazy('movies')
+    permission_required = 'viewer.add_movie'
 
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
         return super().form_invalid(form)
 
 
-class MovieUpdateView(LoginRequiredMixin, UpdateView):
+class MovieUpdateView(PermissionRequiredMixin, UpdateView):
     # template_name = 'form.html'
     template_name = 'model.html'
     model = Movie
     form_class = MovieForm
     success_url = reverse_lazy('movies')
+    permission_required = 'viewer.change_movie'
 
     def form_invalid(self, form):
         LOGGER.warning('User provided incorrect data while updating movie.')
         return super().form_invalid(form)
 
 
-class MovieDeleteView(LoginRequiredMixin, DeleteView):
+class MovieDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('movies')
+    permission_required = 'viewer.delete_movie'
 
     def post(self, request, *args, **kwargs):
 

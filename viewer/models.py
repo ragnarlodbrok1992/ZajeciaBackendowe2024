@@ -7,11 +7,12 @@ from django.db.models import (
     IntegerField,
     TextField,
     BooleanField,
+    ManyToManyField,
     CASCADE,
     DO_NOTHING
 )
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin, Permission
 
 
 class AccountType(Model):
@@ -56,6 +57,13 @@ class Profile(AbstractUser):
     biography = TextField(blank=True)
     is_director = BooleanField(null=True)
     account_type = ForeignKey(AccountType, on_delete=CASCADE, blank=True)
+
+    # permissions = ManyToManyField(Permission)
+
+    # class Meta(AbstractUser.Meta):
+    #     permissions = (('viewer.add_movie', 'Can add movie'),
+    #                    ('viewer.change_movie', 'Can change movie'),
+    #                    ('viewer.delete_movie', 'Can delete movie'))
 
     # W przypadku tworzenia nowego uzytkownika, nadajemy mu wartosc account_type na 'regular'
     # Jezeli tej wartosci nie ma w bazie - chcemy ja stworzyc

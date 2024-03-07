@@ -17,6 +17,8 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.contrib.auth.models import Permission
+
 from django.contrib import admin
 from django.urls import path
 
@@ -43,6 +45,7 @@ admin.site.register(Movie)
 admin.site.register(Actor)
 admin.site.register(Profile)
 admin.site.register(AccountType)
+admin.site.register(Permission)
 
 # Problem: zrzucanie danych z polskimi znakami do jsona powoduje error kodowania znaku
 # Rozwiazanie: python -Xutf8 manage.py dumpdata viewer --output fixtures.json

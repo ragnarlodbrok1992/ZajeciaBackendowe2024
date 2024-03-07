@@ -82,9 +82,28 @@
         </div>
     </nav>
 
-    <div class="container">
-      <div class="jumbotron">
-        {% block content %}{% endblock %}
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <div class="col-auto col-md-4 col-xl-2 px-sm-2 px-0 bg-dark">
+          <div class="d-flex flex-column align-items-center align-items-sm-start px-4 pt-2 text-white min-vh-100">
+            <a href="/" class="d-flex align-items-center pb-4 mb-md-0 me-md-auto text-white text-decoration-none">
+              <span class="fs-6 d-none d-sm-inline">Admin menu</span>
+            </a>
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-1 align-items-center align-items-sm-start" id="menu">
+              <li class="nav-item">
+                <a href="/admin/" class="nav-link align-middle px-1">
+                  <i class="fs-5 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Admin</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="jumbotron">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
       </div>
     </div>
 
