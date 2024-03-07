@@ -27,6 +27,16 @@ def age_validator(value):
         raise ValidationError("Actor must be at least 16 years old.")
 
 
+def instagram_validator(value):
+    if 'instagram' not in value:
+        raise ValidationError("Podany link do instagrama jest niepoprawny!")
+
+
+def linkedin_validator(value):
+    if 'linkedin' not in value:
+        raise ValidationError("Podany link do linkedina nie jest poprawny!")
+
+
 class PastMonthField(DateField):
 
     def validate(self, value):
@@ -94,12 +104,23 @@ class SignUpForm(UserCreationForm):
         min_length=10,
     )
 
+    instagram_link = CharField(
+        label="Podaj link do Instagrama.",
+        validators=[instagram_validator],
+    )
+    linkedin_link = CharField(
+        label="Podaj link do LinkedIn.",
+        validators=[linkedin_validator],
+    )
+
     class Meta(UserCreationForm.Meta):
         model = Profile
         fields = ['username',
                   'first_name',
                   'biography',
-                  'is_director']
+                  'is_director',
+                  'instagram_link',
+                  'linkedin_link']
 
     def save(self, commit=True):
         # self.instance.is_active = False  # Czy uzytkownik jest aktywny po zarejestrowaniu?

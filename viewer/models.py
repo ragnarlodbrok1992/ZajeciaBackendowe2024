@@ -57,6 +57,9 @@ class Profile(AbstractUser):
     is_director = BooleanField(null=True)
     account_type = ForeignKey(AccountType, on_delete=CASCADE, blank=True)
 
+    instagram_link = CharField(max_length=128)
+    linkedin_link = CharField(max_length=128)
+
     # W przypadku tworzenia nowego uzytkownika, nadajemy mu wartosc account_type na 'regular'
     # Jezeli tej wartosci nie ma w bazie - chcemy ja stworzyc
     def save(self, *args, **kwargs):
@@ -73,16 +76,7 @@ class Profile(AbstractUser):
 ZADANIE 13:
   Stworzcie nowy defaultowy model użytkownika który dziedziczy po
   AbstractUser i posiada następujące pola:
-  
-  1. Biografia
-  2. IsActor   *** DLA CHETNYCH -> Jezeli uzytkownik wybierze, ze jest aktorem
+  1. IsActor   *** DLA CHETNYCH -> Jezeli uzytkownik wybierze, ze jest aktorem
                     to niech dostanie liste filmow z bazy danych i moze sobie wybrac
                     w ktorych grał
-  3. IsDirector
-  4. TypKonta - AccountType jako nowy model --> ForeignKey
-  5. Link do social mediow (charfield/textfield)
-    - Instagram
-    - LinkedIn
-        @ Waliduj w formularzu czy dany link zawiera dobry URL -->
-                napisz odpowiedni walidator do forma
 """
