@@ -59,6 +59,9 @@ class MovieSelection(View):
         button_url = request.POST.get('button')
         selected_movie = request.POST.get('movie_selection')
 
+        if not selected_movie:  # Obsluga braku filmow w bazie
+            return redirect('index')
+
         if button_url == 'create_movie':
             return redirect(reverse('movie_create'))
         elif button_url == 'update_movie':
