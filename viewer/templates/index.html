@@ -12,6 +12,12 @@
 {% endfor %}
 {% endcomment %}
 
+{% comment "Not visible" %}
+    {% for group in user.groups.all %}
+        <p>{{ group }}</p>
+    {% endfor %}
+{% endcomment %}
+
 <!-- TODO: getting this element by ID -->
 <!--
 <div id="context-menu" class="hidden">
