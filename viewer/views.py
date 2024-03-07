@@ -1,6 +1,6 @@
 from logging import getLogger
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 
 from django.contrib.auth.models import Permission
@@ -21,6 +21,18 @@ from viewer.forms import MovieForm, ActorForm, SignUpForm
 
 LOGGER = getLogger()
 LOGGER.setLevel('INFO')
+
+
+def viewer_403_handler(request, exception, template_name='403.html'):
+    print("Exception:", exception)
+    response = render(request, template_name)
+    response.status_code = 403
+    return response
+
+
+class StaffRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
 
 
 class MoviesAllView(ListView):
@@ -115,7 +127,10 @@ class MovieUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return super().form_invalid(form)
 
 
-class MovieDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class MovieDeleteView(LoginRequiredMixin,
+                      StaffRequiredMixin,
+                      PermissionRequiredMixin,
+                      DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('movies')

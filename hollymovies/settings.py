@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+HANDLER403 = 'viewer.views.custom_403_handler'
+
 
 # Application definition
 
