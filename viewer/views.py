@@ -174,23 +174,7 @@ class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('index')
 
-
 """
-
-ZADANIE 14:
-    a) Stworz nastepujace grupy:
-        - ogladajacy (moze ogladac filmy/aktorow) --> 'viewer.view_movie'/'viewer.view_actor'
-        - kurator_filmow (moze dodawac/modyfikowac filmy)
-        - kurator_aktorow (moze dodawac/modyfikowac aktorow)
-        - moderator (moze usuwac filmy lub aktorow)
-    
-    b) Stworzcie kilku nowych uzytkownikow i dajcie im rozne uprawnienia.
-        - np Ania - kuratorka filmow
-        - Stefan - kurator_aktorow oraz moderator
-        - Wiesiek - moderator
-    
-    c) Na panelu po lewej stronie stworz informacje o przynaleznosci uzytkownika do danych grup.
-    
-        {% user.groups %}
-
+ZADANIE 15:
+    Miłego weekendu!
 """
