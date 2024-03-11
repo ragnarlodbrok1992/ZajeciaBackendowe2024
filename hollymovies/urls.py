@@ -22,6 +22,7 @@ from django.urls import path
 
 from django.contrib.auth.models import Permission
 
+from viewer.admin import MovieAdmin
 from viewer.models import Genre, Movie, Actor, Profile, AccountType
 from viewer.views import (
     MoviesAllView,
@@ -41,7 +42,7 @@ from viewer.views import (
 )
 
 admin.site.register(Genre)
-admin.site.register(Movie)
+admin.site.register(Movie, MovieAdmin)
 admin.site.register(Actor)
 admin.site.register(Profile)
 admin.site.register(AccountType)
