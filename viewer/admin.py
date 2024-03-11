@@ -89,7 +89,7 @@ class ActorAdmin(ModelAdmin):
     search_fields = ['surname']
     actions = ['grant_Oscar']
 
-    readonly_fields = ['created_entry']
+    # readonly_fields = ['created_entry']
 
     fieldsets = [
         (None, {'fields': ['name', 'surname', 'age']}),
