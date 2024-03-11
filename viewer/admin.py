@@ -13,8 +13,19 @@ class MovieAdmin(ModelAdmin):
     def cleanup_description(modeladmin, request, queryset):
 
         print("Request w cleanup_description:", request)
+        print("Queryset w cleanup_description", queryset)
 
-        queryset.update(description=None)
+        for movie in queryset:
+            print("Movie:", movie)
+            obecne_description = movie.description
+            if obecne_description:
+                obecne_description += " DODATEK DO OPISU"
+            else:
+                obecne_description = "DODATEK DO OPISU"
+            movie.description = obecne_description
+            movie.save()
+
+        # queryset.update(description=None)
 
     ordering = ['id']
     list_display = ['id', 'title', 'genre', 'released_year']
@@ -45,3 +56,18 @@ class MovieAdmin(ModelAdmin):
             }
         )
     ]
+
+
+"""
+ZADANIE 16:
+
+    Zmodyfikuj formularz oraz widok dla Aktora w panelu administratora:
+    1) Stworz dwie grupy - User Information oraz External Information
+    2) Uzupełnij pola dla tych dwóch grup.
+    3) Age niech będzie readonly.
+    4) Stworz funkcje, ktora przyznaje aktorom oskara!
+    
+    Widok listy aktora pozostawiam wam.
+    Po czym sortowac? --> Sprobujcie daty urodzenia.
+
+"""
