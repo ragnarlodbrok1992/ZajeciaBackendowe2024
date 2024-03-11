@@ -1,4 +1,5 @@
 from django.contrib.admin import ModelAdmin
+from datetime import datetime
 
 # Register your models here.
 
@@ -58,16 +59,52 @@ class MovieAdmin(ModelAdmin):
     ]
 
 
-"""
-ZADANIE 16:
+class ActorAdmin(ModelAdmin):
 
-    Zmodyfikuj formularz oraz widok dla Aktora w panelu administratora:
-    1) Stworz dwie grupy - User Information oraz External Information
-    2) Uzupełnij pola dla tych dwóch grup.
-    3) Age niech będzie readonly.
-    4) Stworz funkcje, ktora przyznaje aktorom oskara!
-    
-    Widok listy aktora pozostawiam wam.
-    Po czym sortowac? --> Sprobujcie daty urodzenia.
+    @staticmethod
+    def age_calc(obj):
+        return datetime.now().year - obj.birth_date.year
 
-"""
+    @staticmethod
+    def grant_Oscar(modeladmin, request, queryset):
+
+        print("Adding an Oscarin backend: ", request)
+
+        for actor in queryset:
+            obecne_nagrody = actor.awards
+            if obecne_nagrody:
+                obecne_nagrody += ' Oscar,'
+            else:
+                obecne_nagrody = 'Oscar, '
+            actor.awards = obecne_nagrody
+            actor.save()
+
+        # queryset.update(awards='Oscar')
+
+    ordering = ['id']
+    list_display = ['id', 'name', 'surname', 'age_calc']
+    list_display_links = ['id', 'name', 'surname']
+    list_per_page = 10
+    list_filter = ['surname']
+    search_fields = ['surname']
+    actions = ['grant_Oscar']
+
+    readonly_fields = ['created_entry']
+
+    fieldsets = [
+        (None, {'fields': ['name', 'surname', 'age']}),
+        (
+            'External Information',
+            {
+                'fields': ['birth_date', 'place_of_birth'],
+                'description': 'Data from external db.'
+            }
+        ),
+        (
+            'User Information',
+            {
+                'fields': ['awards'],
+                'description': 'Data added by users.'
+            }
+        )
+    ]

@@ -45,7 +45,7 @@ class Actor(Model):
     surname = CharField(max_length=64)
     birth_date = DateField()
     age = IntegerField()
-    awards = TextField()
+    awards = TextField(null=True)
     place_of_birth = CharField(max_length=128)
 
     def __str__(self):
