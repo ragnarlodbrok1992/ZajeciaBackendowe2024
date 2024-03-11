@@ -33,7 +33,7 @@ class Movie(Model):
     genre = ForeignKey(Genre, on_delete=DO_NOTHING)
     rating = IntegerField()
     release_date = DateField()
-    description = TextField()
+    description = TextField(null=True)
     created_entry = DateTimeField(auto_now_add=True)
 
     def __str__(self):
